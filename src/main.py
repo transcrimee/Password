@@ -2,14 +2,21 @@ import os
 import sys
 import sys
 import json
+import glob
+from pathlib import Path
+
+path = "password/proflie"
+contents = os.listdir(path)
+print("Directory contents:", contents)
 
 
 def login(user_proflie, password):
+  os.makedirs("password/proflie", exist_ok=True) 
   print("---------------")
   user_proflie = input("Enter -> Proflie Name ")
   print("---------------")
   password = input("Enter -> Password ")
-  profile_json = f"{user_proflie}.json"
+  profile_json = f"password/proflie/{user_proflie}.json"
   if os.path.exists(profile_json):
    with open(profile_json, "r") as f:
      data = json.load(f)
