@@ -55,6 +55,13 @@ def login(user_proflie, password):
       choice = input("Enter -> Choose Your Option: ") 
       if "1" in choice:
         add_password(user_proflie, website="", email="", username="", password="")
+  if master_password == data.get("master"):
+    profile_name = data.get("profile_name")
+    clear_screen()
+    print(f"Hello {profile_name} Welcome Back <𝟑 .ᐟ")
+    print("--------- Choose Your Option ---------")
+    print("1:) Add a Password? ")
+    print("2:) Remove a Password? ")
   else:
     print("g")
     profile_name = input("Enter -> The name you want us to call you ")
@@ -79,6 +86,7 @@ def login(user_proflie, password):
      filename = f"{file_name}.json"
      with open(filename, 'w') as f_obj:
       json.dump(empty_data, f_obj)           
+     json.dump({"profile_name": profile_name, "master": master_password, "username": username, "password": password}, f, indent=4) # Dumps the username into the json file
     print(f"Thanks, {username}! Your username has been saved")
     print(f"Created empty JSON file: {filename}")
 
