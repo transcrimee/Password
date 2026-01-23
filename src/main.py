@@ -25,14 +25,17 @@ class ApplicationCore:
     username = input("Enter -> Username ")
     password = input("Enter -> Password ")
    #profile_name = data.get("profile_name")
-   new_data = {
-             website: {
-              "email": email,
-              "username": username,
-              "password": password,
-            }
-        }
-   with open(profile_json, "w") as f:
+   #new_data = {
+   #          website: {
+   #           "email": email,
+   #           "username": username,
+   #           "password": password,
+   #         }
+   #     }
+   new_data = {"website": website, "email": email, "username": username, "password": password}
+
+   with open(profile_json, "a") as f:
+    #f.write('\n')
     json.dump(new_data, f, indent="")
     print(f"Thanks, {username}! Your Account Details have been saved") 
     
@@ -41,7 +44,15 @@ class ApplicationCore:
   def remove_password(website, email, username, password):
    print("b")
 
-
+  def display_all(self, user_proflie, website, email, username, password):
+   profile_json = f"password/proflie/{user_proflie}.json"
+   if os.path.exists(profile_json):
+    with open(profile_json, "r") as f:
+     data = json.load(f)
+    keys = ["website", "email", "username", "password"]
+    display = [data.get(k) for k in keys]
+    print(display)
+     
   path = "password/proflie"
   contents = os.listdir(path)
   print("Directory contents:", contents)
@@ -64,9 +75,12 @@ class ApplicationCore:
        print("--------- Choose Your Option ---------")
        print("1:) Add a Password? ")
        print("2:) Remove a Password? ")
+       print("2:) display all password ")
        choice = input("Enter -> Choose Your Option: ") 
        if "1" in choice:
         self.add_password(user_proflie=user_proflie, website="", email="", username="", password="")
+       if "2" in choice:
+        self.display_all(user_proflie=user_proflie, website="", email="", username="", password="")
    else:
      print("g")
      profile_name = input("Enter -> The name you want us to call you ")
@@ -88,9 +102,9 @@ class ApplicationCore:
      with open(profile_json, "w") as f: # Creates the username.json and ready to writes the username into it 
       json.dump({"profile_name": profile_name, "master": master_password, "username": username, "password": password, "file_name": file_name}, f, indent=4) # Dumps the username into the json file
      empty_data = {} 
-     filename = f"{file_name}.json"
+     filename = f"password/storage/{file_name}.json"
      with open(filename, 'w') as f_obj:
-      json.dump(empty_data, f_obj)           
+      json.dump(file_name, f_obj)           
      print(f"Thanks, {username}! Your username has been saved")
      print(f"Created empty JSON file: {filename}")
 
