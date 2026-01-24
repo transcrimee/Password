@@ -19,11 +19,18 @@ class ApplicationCore:
    if os.path.exists(profile_json):
     with open(profile_json, "r") as f:
      data = json.load(f)
-    profile_name = data.get("profile_name")
-    website = input("Enter -> Website Name ")
-    email = input("Enter -> Email Used ")
-    username = input("Enter -> Username ")
-    password = input("Enter -> Password ")
+    file_path = data.get("file_name")
+    print(file_path)
+    flie_location = f"password/storage/{file_path}.json"
+    print(flie_location)
+    if os.path.exists(profile_json):
+     print("Working Operational")
+    else:
+     print("Error file path not found")
+    #website = input("Enter -> Website Name ")
+    #email = input("Enter -> Email Used ")
+    #username = input("Enter -> Username ")
+    #password = input("Enter -> Password ")
    #profile_name = data.get("profile_name")
    #new_data = {
    #          website: {
@@ -32,12 +39,12 @@ class ApplicationCore:
    #           "password": password,
    #         }
    #     }
-   new_data = {"website": website, "email": email, "username": username, "password": password}
+   #new_data = {"website": website, "email": email, "username": username, "password": password}
 
-   with open(profile_json, "a") as f:
+   #with open(profile_json, "a") as f:
     #f.write('\n')
-    json.dump(new_data, f, indent="")
-    print(f"Thanks, {username}! Your Account Details have been saved") 
+    #json.dump(new_data, f, indent="")
+    #print(f"Thanks, {username}! Your Account Details have been saved") 
     
 
 
@@ -118,4 +125,5 @@ class ApplicationCore:
 
 if __name__ == "__main__":
     app = ApplicationCore()
+
     app.login(user_proflie="", password="")
