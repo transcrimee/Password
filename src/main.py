@@ -30,16 +30,21 @@ class ApplicationCore:
      username = input("Enter -> Username ")
      password = input("Enter -> Password ")
        #profile_name = data.get("profile_name")
-      #new_data = {
+     #new_data = [{
       #          website: {
-      #           "email": email,
-      #           "username": username,
-      #           "password": password,
-      #         }
-      #     }
-    new_data = {"website": website, "email": email, "username": username, "password": password}
-
-    with open(flie_location, "a") as f:
+       #          "email": email,
+        #         "username": username,
+         #        "password": password,
+          #     }
+           #}]
+    #new_data = {"website": website, "email": email, "username": username, "password": password}
+     #new_data = [{
+     #  {"website": website, "email": email, "username": username, "password": password}
+     #}]
+    new_data = []
+    new_data.append({"website": website, "email": email, "username": username, "password": password})
+         
+    with open(flie_location, "a+") as f:
      #f.write('\n')
       json.dump(new_data, f, indent="")
       print(f"Thanks, {username}! Your Account Details have been saved")
