@@ -12,10 +12,11 @@
  # Important Notices
 
 > [!IMPORTANT]
-> Currently all updates on update branch will be pushed to main branch as of 2026/1/26
+> Currently all updates on update branch will be pushed to main branch as of 2026/1/26 5:00AM
 
 
 > [!IMPORTANT]
 > the license for this program is GNU General Public License v3.0
 > [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 
