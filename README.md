@@ -9,7 +9,7 @@
   <a href="https://github.com/transcrimee/Password/issues?q=state%3Aopen%20label%3Aenhancement">Request Feature</a>
 </p>
 
-> # Important Notices
+ # Important Notices
 
 > [!IMPORTANT]
 > Currently all updates on update branch will be pushed to main branch as of 2026/1/26
@@ -18,3 +18,4 @@
 > [!IMPORTANT]
 > the license for this program is GNU General Public License v3.0
 > [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
