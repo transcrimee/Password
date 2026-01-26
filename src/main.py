@@ -93,9 +93,49 @@ class ApplicationCore:
     return display
 
   def username_looks_up(self, user_proflie, website, email, username, password):
-    print("test")
+    profile_json = f"password/proflie/{user_proflie}.json"
+    if os.path.exists(profile_json):
+      with open(profile_json, "r") as f:
+       data = json.load(f)
+       file_path = data.get("file_name")
+    print(file_path)
+    flie_location = f"password/storage/{file_path}.json"
+    print(flie_location) 
+    if os.path.exists(flie_location):
+     with open(flie_location, "r") as f: 
+      data = json.load(f)
+      username_input = input("Enter -> Website Name ")
+     flat_data = [sub[0] for sub in data]
+     filtered_results = [
+        item for item in flat_data 
+        if item.get("username") == username_input   
+    ]
+    keys = ["website", "email", "username", "password"]
+    display = [[item.get(k) for k in keys] for item in filtered_results]
+    print(display)
+    return display  
   def email_looks_up(self, user_proflie, website, email, username, password):
-    print("test")
+     profile_json = f"password/proflie/{user_proflie}.json"
+     if os.path.exists(profile_json):
+      with open(profile_json, "r") as f:
+       data = json.load(f)
+       file_path = data.get("file_name")
+     print(file_path)
+     flie_location = f"password/storage/{file_path}.json"
+     print(flie_location) 
+     if os.path.exists(flie_location):
+      with open(flie_location, "r") as f: 
+       data = json.load(f)
+      email_input = input("Enter -> Website Name ")
+     flat_data = [sub[0] for sub in data]
+     filtered_results = [
+        item for item in flat_data 
+        if item.get("email") == email_input   
+    ]
+     keys = ["website", "email", "username", "password"]
+     display = [[item.get(k) for k in keys] for item in filtered_results]
+     print(display)
+     return display  
 
   def looking_up(self, user_proflie, website, email, username, password):
    profile_json = f"password/proflie/{user_proflie}.json"
