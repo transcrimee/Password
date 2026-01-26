@@ -68,6 +68,35 @@ class ApplicationCore:
      with open(flie_location, 'r') as f:
       data_list = json.load(f)
 
+
+  def website_looks_up(self, user_proflie, website, email, username, password):
+   profile_json = f"password/proflie/{user_proflie}.json"
+   if os.path.exists(profile_json):
+    with open(profile_json, "r") as f:
+     data = json.load(f)
+     file_path = data.get("file_name")
+   print(file_path)
+   flie_location = f"password/storage/{file_path}.json"
+   print(flie_location) 
+   if os.path.exists(flie_location):
+    with open(flie_location, "r") as f: 
+     data = json.load(f)
+     website_input = input("Enter -> Website Name ")
+     flat_data = [sub[0] for sub in data]
+     filtered_results = [
+        item for item in flat_data 
+        if item.get("website") == website_input   
+    ]
+    keys = ["website", "email", "username", "password"]
+    display = [[item.get(k) for k in keys] for item in filtered_results]
+    print(display)
+    return display
+
+  def username_looks_up(self, user_proflie, website, email, username, password):
+    print("test")
+  def email_looks_up(self, user_proflie, website, email, username, password):
+    print("test")
+
   def looking_up(self, user_proflie, website, email, username, password):
    profile_json = f"password/proflie/{user_proflie}.json"
    if os.path.exists(profile_json):
@@ -77,6 +106,19 @@ class ApplicationCore:
     print(file_path)
     flie_location = f"password/storage/{file_path}.json"
     print(flie_location) 
+    if os.path.exists(flie_location):
+     with open(flie_location, "r") as f: 
+      print("---- Choose Your Option ----")
+      print("1:) Website Looks up? ")
+      print("2:) Username looks up? ")
+      print("3:) Email looks up? ")
+      choice = input("Enter -> Choose Your Option: ") 
+      if "1" in choice:
+        self.website_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
+      if "2" in choice:
+        self.username_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
+      if "3" in choice:
+        self.email_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
 
   def display_all(self, user_proflie, website, email, username, password):
    profile_json = f"password/proflie/{user_proflie}.json"
@@ -117,12 +159,16 @@ class ApplicationCore:
        print("--------- Choose Your Option ---------")
        print("1:) Add a Password? ")
        print("2:) Remove a Password? ")
-       print("2:) display all password ")
+       print("3:) Display all Password ")
+       print("4:) Looks Up ")
        choice = input("Enter -> Choose Your Option: ") 
        if "1" in choice:
         self.add_password(user_proflie=user_proflie, website="", email="", username="", password="")
-       if "2" in choice:
+       if "3" in choice:
         self.display_all(user_proflie=user_proflie, website="", email="", username="", password="")
+       if "4" in choice:
+        self.looking_up(user_proflie=user_proflie, website="", email="", username="", password="")
+
    else:
      print("g")
      profile_name = input("Enter -> The name you want us to call you ")
