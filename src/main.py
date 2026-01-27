@@ -3,6 +3,7 @@ import sys
 import sys
 import json
 import glob
+import uuid
 from pathlib import Path
 
 class ApplicationCore:
@@ -43,19 +44,21 @@ class ApplicationCore:
      #new_data = [{
      #  {"website": website, "email": email, "username": username, "password": password}
      #}]
-    new_data = [{"website": website, "email": email, "username": username, "password": password}]
+    unique_id = str(uuid.uuid4())
+
+    new_data = [{"id": unique_id, "website": website, "email": email, "username": username, "password": password}]
     data_list.append(new_data)
          
     with open(flie_location, "w") as f:
      #f.write('\n')
       json.dump(data_list, f, indent=4)
-      print(f"Thanks, {username}! Your Account Details have been saved")
+      print(f"Thanks, {username}! Your Account Details (ID: {unique_id}) been saved")
    else:
        print("Error file path not found")
 
     
 
-  def remove_password(website, user_proflie, email, username, password):
+  def remove_password(self, user_proflie, website, email, username, password):
    profile_json = f"password/proflie/{user_proflie}.json"
    if os.path.exists(profile_json):
     with open(profile_json, "r") as f:
@@ -67,7 +70,23 @@ class ApplicationCore:
     if os.path.exists(flie_location):
      with open(flie_location, 'r') as f:
       data_list = json.load(f)
-
+      id_input = input("Enter -> ID ")
+      updated_list = [
+                inner_list for inner_list in data_list 
+                if inner_list[0].get('id') != id_input
+            ]
+    
+     #updated_list = [
+    #[entry for entry in inner_list if it.get('id') != filtered_results]
+    #for inner_list in data_list
+#]
+    if len(updated_list) < len(data_list):
+      with open(flie_location, "w") as f:
+        json.dump(updated_list, f, indent=4)
+      print(f"Success: Entry with ID {id_input} has been removed.")
+    else:
+      print("ID not found.")
+       
 
   def website_looks_up(self, user_proflie, website, email, username, password):
    profile_json = f"password/proflie/{user_proflie}.json"
@@ -86,7 +105,7 @@ class ApplicationCore:
      filtered_results = [
         item for item in flat_data 
         if item.get("website") == website_input   
-    ]
+    ]   
     keys = ["website", "email", "username", "password"]
     display = [[item.get(k) for k in keys] for item in filtered_results]
     print(display)
@@ -204,6 +223,8 @@ class ApplicationCore:
        choice = input("Enter -> Choose Your Option: ") 
        if "1" in choice:
         self.add_password(user_proflie=user_proflie, website="", email="", username="", password="")
+       if "2" in choice:
+        self.remove_password(user_proflie=user_proflie, website="", email="", username="", password="")
        if "3" in choice:
         self.display_all(user_proflie=user_proflie, website="", email="", username="", password="")
        if "4" in choice:
