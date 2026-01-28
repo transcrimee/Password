@@ -16,13 +16,14 @@ class ApplicationCore:
         _ = os.system('clear') # Linux/macOS/Posix
 
   def add_password(self, user_proflie, website, email, username, password):
-   profile_json = f"password/proflie/{user_proflie}.json"
+   self.clear_screen(cls="")
+   profile_json = f"password/proflie/{user_proflie}.json" #
    if os.path.exists(profile_json):
     with open(profile_json, "r") as f:
      data = json.load(f)
-    file_path = data.get("file_name")
+    file_path = data.get("file_name") # Get the name of json file by reading the section "file_name"  
     print(file_path)
-    flie_location = f"password/storage/{file_path}.json"
+    flie_location = f"password/storage/{file_path}.json" # here just seting up the path instead of typing the whole directory I can just type this flie_location
     print(flie_location)
     if os.path.exists(flie_location):
      with open(flie_location, 'r') as f:
@@ -44,21 +45,22 @@ class ApplicationCore:
      #new_data = [{
      #  {"website": website, "email": email, "username": username, "password": password}
      #}]
-    unique_id = str(uuid.uuid4())
+    unique_id = str(uuid.uuid4()) # This will create a unique ID for each password
 
-    new_data = [{"id": unique_id, "website": website, "email": email, "username": username, "password": password}]
+    new_data = [{"id": unique_id, "website": website, "email": email, "username": username, "password": password}] # This is the data set that grabs user data then appends it under it
     data_list.append(new_data)
          
-    with open(flie_location, "w") as f:
+    with open(flie_location, "w") as f: # Writing the user data in storage - the file name of password storage
      #f.write('\n')
       json.dump(data_list, f, indent=4)
       print(f"Thanks, {username}! Your Account Details (ID: {unique_id}) been saved")
    else:
-       print("Error file path not found")
+       print("Error file path not found") 
 
     
 
   def remove_password(self, user_proflie, website, email, username, password):
+   self.clear_screen(cls="")
    profile_json = f"password/proflie/{user_proflie}.json"
    if os.path.exists(profile_json):
     with open(profile_json, "r") as f:
@@ -89,6 +91,7 @@ class ApplicationCore:
        
 
   def website_looks_up(self, user_proflie, website, email, username, password):
+   self.clear_screen(cls="")
    profile_json = f"password/proflie/{user_proflie}.json"
    if os.path.exists(profile_json):
     with open(profile_json, "r") as f:
@@ -112,6 +115,7 @@ class ApplicationCore:
     return display
 
   def username_looks_up(self, user_proflie, website, email, username, password):
+    self.clear_screen(cls="")
     profile_json = f"password/proflie/{user_proflie}.json"
     if os.path.exists(profile_json):
       with open(profile_json, "r") as f:
@@ -134,6 +138,7 @@ class ApplicationCore:
     print(display)
     return display  
   def email_looks_up(self, user_proflie, website, email, username, password):
+     self.clear_screen(cls="")
      profile_json = f"password/proflie/{user_proflie}.json"
      if os.path.exists(profile_json):
       with open(profile_json, "r") as f:
@@ -171,15 +176,29 @@ class ApplicationCore:
       print("1:) Website Looks up? ")
       print("2:) Username looks up? ")
       print("3:) Email looks up? ")
-      choice = input("Enter -> Choose Your Option: ") 
-      if "1" in choice:
-        self.website_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
-      if "2" in choice:
-        self.username_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
-      if "3" in choice:
-        self.email_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
-
+      while True:
+       try:
+           raw_input = input("Enter -> Choose Your Option: ").strip()
+           choice = int(raw_input) if raw_input.isdigit() else 0  
+           while choice == "": 
+            raw_input = input("Enter -> Choose Your Option: ").strip()
+            choice = int(raw_input) if raw_input.isdigit() else 0
+           if choice >= 4:
+             print("Too hight")
+           if choice <= 1:
+             print("Too low")
+           if choice == 1:
+             self.website_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
+           if choice == 2:
+             self.username_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
+           if choice == 3:
+             self.email_looks_up(user_proflie=user_proflie, website="", email="", username="", password="")
+       except KeyboardInterrupt:
+        # Handles Ctrl+C gracefully
+        print("\nProgram interrupted by user.")
+        break
   def display_all(self, user_proflie, website, email, username, password):
+   self.clear_screen(cls="")
    profile_json = f"password/proflie/{user_proflie}.json"
    if os.path.exists(profile_json):
     with open(profile_json, "r") as f:
@@ -220,16 +239,29 @@ class ApplicationCore:
        print("2:) Remove a Password? ")
        print("3:) Display all Password ")
        print("4:) Looks Up ")
-       choice = input("Enter -> Choose Your Option: ") 
-       if "1" in choice:
-        self.add_password(user_proflie=user_proflie, website="", email="", username="", password="")
-       if "2" in choice:
-        self.remove_password(user_proflie=user_proflie, website="", email="", username="", password="")
-       if "3" in choice:
-        self.display_all(user_proflie=user_proflie, website="", email="", username="", password="")
-       if "4" in choice:
-        self.looking_up(user_proflie=user_proflie, website="", email="", username="", password="")
-
+      while True:
+       try:
+          raw_input = input("Enter -> Choose Your Option: ").strip()
+          choice = int(raw_input) if raw_input.isdigit() else 0  
+          while choice == "": 
+           raw_input = input("Enter -> Choose Your Option: ").strip()
+           choice = int(raw_input) if raw_input.isdigit() else 0
+          if choice >= 4:
+           print("Too hight")
+          if choice <= 1:
+           print("Too low")
+          if choice == 1:
+           self.add_password(user_proflie=user_proflie, website="", email="", username="", password="")
+          if choice == 2:
+           self.remove_password(user_proflie=user_proflie, website="", email="", username="", password="")
+          if choice == 3:
+           self.display_all(user_proflie=user_proflie, website="", email="", username="", password="")
+          if choice == 4:
+           self.looking_up(user_proflie=user_proflie, website="", email="", username="", password="")
+       except KeyboardInterrupt:
+        # Handles Ctrl+C gracefully
+        print("\nProgram interrupted by user.")
+        break
    else:
      print("g")
      profile_name = input("Enter -> The name you want us to call you ")
